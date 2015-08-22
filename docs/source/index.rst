@@ -1,9 +1,9 @@
-.. django-payu documentation master file, created by
-   sphinx-quickstart on Sat Aug 22 16:05:40 2015.
+.. django_payu documentation master file, created by
+   sphinx-quickstart on Sat Aug 22 16:31:28 2015.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to django-payu's documentation!
+Welcome to django_payu's documentation!
 =======================================
 
 Contents:

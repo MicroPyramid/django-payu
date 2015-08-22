@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# pietrack documentation build configuration file, created by
-# sphinx-quickstart on Wed Jul 29 18:10:32 2015.
+# django_payu documentation build configuration file, created by
+# sphinx-quickstart on Sat Aug 22 16:31:28 2015.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -34,7 +34,7 @@ extensions = [
 ]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ['ntemplates']
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
@@ -139,7 +139,7 @@ html_theme = 'alabaster'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ['nstatic']
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
@@ -224,7 +224,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'django_payu.tex', u'django_payu Documentation',
+  (master_doc, 'django_payu.tex', u'django\\_payu Documentation',
    u'Micro Pyramid', 'manual'),
 ]
 
