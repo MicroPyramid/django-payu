@@ -22,7 +22,7 @@ for dirpath, dirnames, filenames in os.walk(PROJECT_NAME):
 
 setup(
     name='django-payu',
-    version='1.0.2',
+    version='0.1',
     packages=['payu'],
     include_package_data=True,
     description='A simple PayU app for Django.',
