@@ -16,8 +16,3 @@ Add the following settings to the PAYU_INFO dictionary using the details from yo
     # And add the PAYU_MODE to 'TEST' for testing and 'LIVE' for production.
     PAYU_MODE = "TEST"
 
-    PAYU_SUCCESS_URL = 'Your success callback url'
-
-    PAYU_CANCEL_URL = 'Your cancel callback url'
-
-    PAYU_FAILURE_URL ='Your failure callback url'
