@@ -15,4 +15,3 @@ Add the following settings to the PAYU_INFO dictionary using the details from yo
 
     # And add the PAYU_MODE to 'TEST' for testing and 'LIVE' for production.
     PAYU_MODE = "TEST"
-
