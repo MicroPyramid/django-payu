@@ -2,7 +2,7 @@
 Configuration Settings
 ======================
 
-In order to test your integration, first create a *PayU* Account. Once this has been created, you will be given the following...
+In order to test your integration, first create a **PayU** Account. Once this has been created, you will be given the following...
 
 * *Key (MerchantID)* – This ID is generated at the time of activation of your site and helps to uniquely identify you to PayU.
 * *SALT* – This will be provided by PayU.in.

@@ -6,7 +6,10 @@
 Welcome to django_payu's documentation!
 =======================================
 
-This package provides integration between django and PayU Payment Gateway.
+This package provides integration between `Django`_ and `PayU Payment Gateway`_.
+
+.. _`Django`: https://www.djangoproject.com/
+.. _`PayU Payment Gateway`: https://www.payu.in
 
 Installation
 ------------
@@ -43,6 +46,7 @@ Contents:
     :maxdepth: 2
 
     configuration
+    apireference
 
 
 

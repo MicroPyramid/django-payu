@@ -204,7 +204,7 @@ def refund_transaction(mihpayid, amount):
 # This command is used to cancel an auth transaction.
 def cancel_transaction(mihpayid, amount):
     params = {}
-    params['command'] = "cancel_transaction:"
+    params['command'] = "cancel_transaction"
     params['var1'] = mihpayid      # Pass the Payu id (mihpayid) of the transaction to capture.
     params['var2'] = uuid4().hex   # token ID(unique token from merchant)
     params['var3'] = amount
