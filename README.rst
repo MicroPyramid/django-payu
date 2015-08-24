@@ -6,11 +6,9 @@ This package provides integration between `Django` and `PayU Payment Gateway`.
 Quick start
 ------------
 
-1. Install 'django-payu' using the following command.
+1. Install 'django-payu' using the following command::
 
-    .. code-block:: python
-
-        pip install django-payu
+    pip install django-payu
 
 2. Add "payu" to your INSTALLED_APPS setting like this::
 
@@ -29,8 +27,6 @@ Quick start
     # And add the PAYU_MODE to 'TEST' for testing and 'LIVE' for production.
     PAYU_MODE = "TEST"
 
-4. Finally, run the following command.
+4. Finally, run the following command::
 
-    .. code-block:: python
-
-        python manage.py syncdb
+    python manage.py syncdb

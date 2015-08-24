@@ -2,3 +2,6 @@
 *~
 db.sqlite3
 env
+dist
+*.egg-info/
+docs/build/*
