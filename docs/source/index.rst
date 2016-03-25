@@ -35,7 +35,7 @@ Then, add the following settings in the setting file using the details from your
     # Change the PAYU_MODE to 'LIVE' for production.
     PAYU_MODE = "TEST"
 
-Finally, run the following command::
+Finally, run the following commands::
 
     python manage.py makemigrations payu
     
