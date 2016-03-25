@@ -27,6 +27,8 @@ Quick start
     # And add the PAYU_MODE to 'TEST' for testing and 'LIVE' for production.
     PAYU_MODE = "TEST"
 
-4. Finally, run the following command::
+4. Finally, run the following commands::
 
-    python manage.py syncdb
+    python manage.py makemigrations payu
+    
+    python manage.py migrate

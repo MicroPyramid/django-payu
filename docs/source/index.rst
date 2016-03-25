@@ -37,7 +37,9 @@ Then, add the following settings in the setting file using the details from your
 
 Finally, run the following command::
 
-    python manage.py syncdb
+    python manage.py makemigrations payu
+    
+    python manage.py migrate
 
 
 Contents:
