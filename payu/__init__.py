@@ -1,1 +1,1 @@
-from gateway import *
+from payu.gateway import *
