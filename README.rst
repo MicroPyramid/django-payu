@@ -1,6 +1,7 @@
 Django-PayU
 ==============
 This package provides integration between `Django` and `PayU Payment Gateway`.
+
 .. image:: https://travis-ci.org/AnjaneyuluBatta505/django-payu.svg?branch=master
    :target: https://travis-ci.org/AnjaneyuluBatta505/django-payu
 
