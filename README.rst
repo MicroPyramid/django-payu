@@ -1,9 +1,15 @@
 Django-PayU
 ==============
-.. image:: http://travis-ci.org/MicroPyramid/django-payu.svg?branch=master
-    :target: http://travis-ci.org/MicroPyramid/django-payu
 This package provides integration between `Django` and `PayU Payment Gateway`.
+.. image:: https://travis-ci.org/AnjaneyuluBatta505/django-payu.svg?branch=master
+   :target: https://travis-ci.org/AnjaneyuluBatta505/django-payu
 
+.. image:: https://coveralls.io/repos/github/AnjaneyuluBatta505/django-payu/badge.svg?branch=master 
+   :target: https://coveralls.io/github/AnjaneyuluBatta505/django-payu?branch=master
+
+.. image:: https://landscape.io/github/AnjaneyuluBatta505/django-payu/master/landscape.svg?style=flat
+   :target: https://landscape.io/github/AnjaneyuluBatta505/django-payu/master
+   :alt: Code Health
 Quick start
 ------------
 
