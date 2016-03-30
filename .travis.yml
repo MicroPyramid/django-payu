@@ -10,6 +10,11 @@ python:
 
 install:
   - python setup.py install
+  - pip install coveralls
 
 script:
   - python -m unittest discover
+  - coverage run payu/tests.py
+
+after_success:
+  coveralls
