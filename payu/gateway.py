@@ -1,4 +1,4 @@
-from models import Transaction, CancelRefundCaptureRequests
+from payu.models import Transaction, CancelRefundCaptureRequests
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.http import urlencode
 from django.conf import settings
