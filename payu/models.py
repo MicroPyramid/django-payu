@@ -32,6 +32,9 @@ class Transaction(models.Model):
     txn_status_on_payu = models.CharField(max_length=20, null=True, blank=True)  
     hash_status = models.CharField(max_length=100, null=True, blank=True)
 
+    class Meta:
+        app_label = 'payu'
+
 
 class CancelRefundCaptureRequests(models.Model):
     transaction = models.ForeignKey(Transaction)
@@ -54,3 +57,6 @@ class CancelRefundCaptureRequests(models.Model):
     
     amount = models.DecimalField(max_digits=19, decimal_places=6, default=0)
     error_code = models.CharField(max_length=10)
+
+    class Meta:
+        app_label = 'payu'
