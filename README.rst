@@ -40,3 +40,8 @@ Quick start
     python manage.py makemigrations payu
     
     python manage.py migrate
+    
+
+For additional help you can `Contact us here`_
+
+.. _contact us here: https://micropyramid.com/contact-us/
