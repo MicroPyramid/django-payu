@@ -3,7 +3,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils.http import urlencode
 from django.conf import settings
 from hashlib import sha512
-import urllib2
+try:
+    import urllib.request as urllib2
+except ImportError:
+    import urllib2
 import json
 
 KEYS = ('txnid', 'amount', 'productinfo', 'firstname', 'email',
