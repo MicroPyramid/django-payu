@@ -13,8 +13,8 @@ install:
   - pip install coveralls
 
 script:
-  - python -m unittest discover
-  - coverage run payu/tests.py
+  - python test_runner.py
+  - coverage run --source=payu test_runner.py
 
 after_success:
   coveralls
