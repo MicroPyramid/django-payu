@@ -13,6 +13,7 @@ from payu.gateway import (
     refund_transaction,
     cancel_transaction,
     check_action_status,
+    cancel_refund_transaction,
 )
 
 
@@ -123,5 +124,8 @@ class VerifyPayment(TestCase):
     def test_refund_transaction(self):
         r = refund_transaction(123,123)
 
-    def test_refund_transaction(self):
+    def test_check_action_status(self):
         r = check_action_status(123)
+
+    def test_cancel_refund_transaction(self):
+        r = cancel_refund_transaction(123,10)
