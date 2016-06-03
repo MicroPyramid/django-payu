@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils.http import urlencode
 from django.conf import settings
 from hashlib import sha512
+from uuid import uuid4
 try:
     import urllib.request as urllib2
 except ImportError:
@@ -127,8 +128,8 @@ def post(params):
 
     request = urllib2.Request(url)
     request.add_data(payload)
-
     response = (urllib2.urlopen(request))
+
     response = json.loads(response.read())
 
     return response
@@ -213,7 +214,6 @@ def cancel_transaction(mihpayid, amount):
     params['var3'] = amount
 
     response = post(params)
-
     if type(response) == type(dict()) and 'request_id' or 'txn_update_id' in response.keys():
         cancel_request = CancelRefundCaptureRequests.objects.create(
                             request_id=response['request_id'] if response['request_id'] else response['txn_update_id'],

@@ -10,8 +10,10 @@ install:
   - pip install coveralls
 
 script:
-  - python test_runner.py
-  - coverage run --source=payu test_runner.py
+  - python test_runner.py makemigrations
+  - python test_runner.py migrate
+  - python test_runner.py test
+  - coverage run --source=payu test_runner.py  test
 
 after_success:
   coveralls
