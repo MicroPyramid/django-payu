@@ -85,7 +85,7 @@ def get_webservice_hash(data):
     # Generate hash sequence using the string sha512(key|command|var1|salt)
     hash_value = sha512(str('').encode('utf-8'))
     for key in Webservicekeys:
-        hash_value.update("%s%s" % (str(data.get(key, '')), '|'))
+        hash_value.update(("%s%s" % (str(data.get(key, '')), '|')).encode("utf-8"))
 
     hash_value.update(getattr(settings, 'PAYU_MERCHANT_SALT', None))
     return hash_value.hexdigest().lower()
