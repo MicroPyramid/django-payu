@@ -5,3 +5,4 @@ env
 dist
 *.egg-info/
 docs/build/*
+.coverage

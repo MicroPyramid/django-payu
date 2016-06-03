@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils.http import urlencode
 from django.conf import settings
 from hashlib import sha512
+from uuid import uuid4
 try:
     import urllib.request as urllib2
 except ImportError:
@@ -20,15 +21,15 @@ def get_hash(data):
     # Generate hash sequence before posting the transaction to PayU:
     # sha512(key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5||||||SALT)
 
-    hash_value = sha512(getattr(settings, 'PAYU_MERCHANT_KEY', None))
+    hash_value = sha512(str(getattr(settings, 'PAYU_MERCHANT_KEY', None)).encode('utf-8'))
 
     for key in KEYS:
         if data.get(key) == None:
-            hash_value.update("%s%s" % ('|', str('')))
+            hash_value.update((("%s%s" % ('|', str('')))).encode("utf-8"))
         else:
-            hash_value.update("%s%s" % ('|', str(data.get(key, ''))))
+            hash_value.update(("%s%s" % ('|', str(data.get(key, '')))).encode("utf-8"))
 
-    hash_value.update("%s%s" % ('|', getattr(settings, 'PAYU_MERCHANT_SALT', None)))
+    hash_value.update(("%s%s".format('|', getattr(settings, 'PAYU_MERCHANT_SALT', None))).encode('utf-8'))
 
     # Create transaction record
     transaction = Transaction.objects.create(
@@ -46,20 +47,20 @@ def check_hash(data):
         # if the additionalCharges parameter is posted in the transaction response,then hash formula is:
         # sha512(additionalCharges|SALT|status||||||udf5|udf4|udf3|udf2|udf1|email|firstname|productinfo|amount|txnid|key)
 
-        hash_value = sha512(str(data.get('additionalCharges')))
-        hash_value.update("%s%s" % ('|', getattr(settings, 'PAYU_MERCHANT_SALT', None)))
+        hash_value = sha512(str(data.get('additionalCharges')).encode('utf-8'))
+        hash_value.update(("%s%s" % ('|', getattr(settings, 'PAYU_MERCHANT_SALT', None))).encode('utf-8'))
     else:
         # If additionalCharges parameter is not posted in the transaction response, then hash formula is the generic reverse hash formula
         # sha512(SALT|status||||||udf5|udf4|udf3|udf2|udf1|email|firstname|productinfo|amount|txnid|key)
 
         hash_value = sha512(getattr(settings, 'PAYU_MERCHANT_SALT', None))
     
-    hash_value.update("%s%s" % ('|', str(data.get('status', ''))))
+    hash_value.update(("%s%s" % ('|', str(data.get('status', '')))).encode('utf-8'))
     
     for key in Reversedkeys:
-        hash_value.update("%s%s" % ('|', str(data.get(key, ''))))
+        hash_value.update(("%s%s" % ('|', str(data.get(key, '')))).encode('utf-8'))
 
-    hash_value.update("%s%s" % ('|', getattr(settings, 'PAYU_MERCHANT_KEY', None)))
+    hash_value.update(("%s%s" % ('|', getattr(settings, 'PAYU_MERCHANT_KEY', None))).encode('utf-8'))
 
     # Updating the transaction
     transaction = Transaction.objects.get(transaction_id=data.get('txnid'))
@@ -82,11 +83,11 @@ def check_hash(data):
 
 def get_webservice_hash(data):
     # Generate hash sequence using the string sha512(key|command|var1|salt)
-    hash_value = sha512('')
+    hash_value = sha512(''.encode("utf-8"))
     for key in Webservicekeys:
-        hash_value.update("%s%s" % (str(data.get(key, '')), '|'))
+        hash_value.update(("%s%s" % (str(data.get(key, '')), '|')).encode("utf-8"))
 
-    hash_value.update(getattr(settings, 'PAYU_MERCHANT_SALT', None))
+    hash_value.update(getattr(settings, 'PAYU_MERCHANT_SALT', None).encode("utf-8"))
     return hash_value.hexdigest().lower()
 
 
@@ -127,8 +128,8 @@ def post(params):
 
     request = urllib2.Request(url)
     request.add_data(payload)
-
     response = (urllib2.urlopen(request))
+
     response = json.loads(response.read())
 
     return response
@@ -213,7 +214,6 @@ def cancel_transaction(mihpayid, amount):
     params['var3'] = amount
 
     response = post(params)
-
     if type(response) == type(dict()) and 'request_id' or 'txn_update_id' in response.keys():
         cancel_request = CancelRefundCaptureRequests.objects.create(
                             request_id=response['request_id'] if response['request_id'] else response['txn_update_id'],

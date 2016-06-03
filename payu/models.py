@@ -14,7 +14,7 @@ class Transaction(models.Model):
     transaction_date_time = models.DateTimeField(null=True, blank=True)
 
     # mode  (credit card/ CD - Cheque / Net Banking)
-    mode = models.CharField(max_length=10, null=True, blank=True)   
+    mode = models.CharField(max_length=10, null=True, blank=True)
     status = models.CharField(max_length=15, null=True, blank=True)
     amount = models.DecimalField(max_digits=19, decimal_places=6)
 
@@ -23,13 +23,13 @@ class Transaction(models.Model):
     bankcode = models.CharField(max_length=10, null=True, blank=True)
 
     # Reference number for the payment gateway (received in PG_TYPE)
-    bank_ref_num = models.CharField(max_length=100, null=True, blank=True)   
-    discount = models.DecimalField(max_digits=19, decimal_places=6, default=0)   
-    additional_charges = models.DecimalField(max_digits=19, decimal_places=6, default=0) # Charged by Payu
+    bank_ref_num = models.CharField(max_length=100, null=True, blank=True)
+    discount = models.DecimalField(max_digits=19, decimal_places=6, default=0)
+    additional_charges = models.DecimalField(max_digits=19, decimal_places=6, default=0)  # Charged by Payu
 
     # Status of transaction in PayU system
     # Map to unmappedstatus(initiated/ in progress /dropped / bounced / captured / auth/ failed / usercancelled/ pending)
-    txn_status_on_payu = models.CharField(max_length=20, null=True, blank=True)  
+    txn_status_on_payu = models.CharField(max_length=20, null=True, blank=True)
     hash_status = models.CharField(max_length=100, null=True, blank=True)
 
     class Meta:
@@ -39,7 +39,7 @@ class Transaction(models.Model):
 class CancelRefundCaptureRequests(models.Model):
     transaction = models.ForeignKey(Transaction)
 
-    # PayU Request ID for a request in a Transaction. 
+    # PayU Request ID for a request in a Transaction.
     request_id = models.CharField(max_length=100)
 
     # Cancel or Refund or Capture Request
@@ -54,7 +54,7 @@ class CancelRefundCaptureRequests(models.Model):
 
     # Bank Reference Number
     bank_ref_num = models.CharField(max_length=100, null=True, blank=True)
-    
+
     amount = models.DecimalField(max_digits=19, decimal_places=6, default=0)
     error_code = models.CharField(max_length=10)
 

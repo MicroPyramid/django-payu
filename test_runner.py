@@ -1,7 +1,6 @@
 import sys
 import django
 from django.conf import settings
-from django.test.utils import get_runner
 
 
 if __name__ == "__main__":
@@ -9,11 +8,12 @@ if __name__ == "__main__":
         DATABASES={
             'default': {
                 'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': './db.sqlite3'
             }
         },
+        INSTALLED_APPS=['payu'],
     )
     django.setup()
-    TestRunner = get_runner(settings)
-    test_runner = TestRunner()
-    failures = test_runner.run_tests(["payu"])
-    sys.exit(bool(failures))
+    if sys.argv:
+        from django.core.management import execute_from_command_line
+        execute_from_command_line(sys.argv)
