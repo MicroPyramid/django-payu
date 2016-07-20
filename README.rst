@@ -4,7 +4,7 @@ Django-PayU
     :target: http://travis-ci.org/MicroPyramid/django-payu
 .. image:: https://coveralls.io/repos/github/MicroPyramid/django-payu/badge.svg?branch=maste
     :target: https://coveralls.io/github/MicroPyramid/django-payu?branch=master
-.. image:: https://img.shields.io/pypi/l/django-payu.svg
+.. image:: https://img.shields.io/github/license/micropyramid/django-payu.svg
     :target: https://pypi.python.org/pypi/django-payu/
 .. image:: https://landscape.io/github/MicroPyramid/django-payu/master/landscape.svg?style=flat
    :target: https://landscape.io/github/MicroPyramid/django-payu/master
