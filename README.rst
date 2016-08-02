@@ -9,7 +9,11 @@ Django-PayU
 .. image:: https://landscape.io/github/MicroPyramid/django-payu/master/landscape.svg?style=flat
    :target: https://landscape.io/github/MicroPyramid/django-payu/master
    :alt: Code Health
+
+
 This package provides integration between `Django` and `PayU Payment Gateway`.
+
+
 Quick start
 ------------
 
@@ -36,10 +40,8 @@ Quick start
 
 4. Finally, run the following commands::
 
-    python manage.py makemigrations payu
-    
     python manage.py migrate
-    
+
 
 For additional help you can `Contact us here`_
 
