@@ -10,9 +10,10 @@ except ImportError:
     import urllib2
 import json
 
+
 KEYS = ('txnid', 'amount', 'productinfo', 'firstname', 'email',
-        'udf1', 'udf2', 'udf3', 'udf4', 'udf5',  'udf6',  'udf7', 'udf8',
-        'udf9',  'udf10')
+        'udf1', 'udf2', 'udf3', 'udf4', 'udf5', 'udf6', 'udf7', 'udf8',
+        'udf9', 'udf10')
 
 Webservicekeys = ('key', 'command', 'var1')
 
@@ -32,10 +33,8 @@ def get_hash(data):
     hash_value.update(("%s%s".format('|', getattr(settings, 'PAYU_MERCHANT_SALT', None))).encode('utf-8'))
 
     # Create transaction record
-    transaction = Transaction.objects.create(
-                                transaction_id=data.get('txnid'),
-                                amount=data.get('amount'),
-                            )
+    Transaction.objects.create(
+        transaction_id=data.get('txnid'), amount=data.get('amount'))
     return hash_value.hexdigest().lower()
 
 
@@ -54,9 +53,9 @@ def check_hash(data):
         # sha512(SALT|status||||||udf5|udf4|udf3|udf2|udf1|email|firstname|productinfo|amount|txnid|key)
 
         hash_value = sha512(getattr(settings, 'PAYU_MERCHANT_SALT', None))
-    
+
     hash_value.update(("%s%s" % ('|', str(data.get('status', '')))).encode('utf-8'))
-    
+
     for key in Reversedkeys:
         hash_value.update(("%s%s" % ('|', str(data.get(key, '')))).encode('utf-8'))
 
@@ -105,7 +104,7 @@ def post(params):
     if not params['command'] == "check_action_status" or "verify_payment":
         try:
             # Check whether the transaction exists or not
-            txn = Transaction.objects.get(mihpayid=params['var1'])
+            Transaction.objects.get(mihpayid=params['var1'])
         except ObjectDoesNotExist:
             # if not return error message
             error_message = "Transaction with this mihpayid does not exist."
@@ -167,16 +166,15 @@ def capture_transaction(mihpayid):
     response = post(params)
 
     if type(response) == type(dict()) and 'request_id' in response.keys():
-        refund_request = CancelRefundCaptureRequests.objects.create(
-                            request_id=response['request_id'],
-                            request_type="Capture",
-                            transaction=Transaction.objects.get(mihpayid=mihpayid),
-                            status=response['status'],
-                            message=response['msg'],
-                            mihpayid=response['mihpayid'] if response['mihpayid'] else mihpayid,
-                            bank_ref_num=response['bank_ref_num'],
-                            error_code=response['error_code'] if response['error_code'] else ""
-                        )
+        CancelRefundCaptureRequests.objects.create(
+            request_id=response['request_id'],
+            request_type="Capture",
+            transaction=Transaction.objects.get(mihpayid=mihpayid),
+            status=response['status'],
+            message=response['msg'],
+            mihpayid=response['mihpayid'] if response['mihpayid'] else mihpayid,
+            bank_ref_num=response['bank_ref_num'],
+            error_code=response['error_code'] if response['error_code'] else "")
     return response
 
 
@@ -191,17 +189,16 @@ def refund_transaction(mihpayid, amount):
     response = post(params)
 
     if type(response) == type(dict()) and 'request_id' in response.keys():
-        refund_request = CancelRefundCaptureRequests.objects.create(
-                            request_id=response['request_id'],
-                            request_type="Refund",
-                            transaction=Transaction.objects.get(mihpayid=mihpayid),
-                            status=response['status'],
-                            message=response['msg'],
-                            amount=amount,
-                            mihpayid=response['mihpayid'] if response['mihpayid'] else mihpayid,
-                            bank_ref_num=response['bank_ref_num'],
-                            error_code=response['error_code'] if response['error_code'] else ""
-                        )
+        CancelRefundCaptureRequests.objects.create(
+            request_id=response['request_id'],
+            request_type="Refund",
+            transaction=Transaction.objects.get(mihpayid=mihpayid),
+            status=response['status'],
+            message=response['msg'],
+            amount=amount,
+            mihpayid=response['mihpayid'] if response['mihpayid'] else mihpayid,
+            bank_ref_num=response['bank_ref_num'],
+            error_code=response['error_code'] if response['error_code'] else "")
     return response
 
 
@@ -215,17 +212,16 @@ def cancel_transaction(mihpayid, amount):
 
     response = post(params)
     if type(response) == type(dict()) and 'request_id' or 'txn_update_id' in response.keys():
-        cancel_request = CancelRefundCaptureRequests.objects.create(
-                            request_id=response['request_id'] if response['request_id'] else response['txn_update_id'],
-                            request_type="Cancel",
-                            transaction=Transaction.objects.get(mihpayid=mihpayid),
-                            status=response['status'],
-                            message=response['msg'],
-                            amount=amount,
-                            mihpayid=response['mihpayid'] if response['mihpayid'] else mihpayid,
-                            bank_ref_num=response['bank_ref_num'],
-                            error_code=response['error_code'] if response['error_code'] else ""
-                        )
+        CancelRefundCaptureRequests.objects.create(
+            request_id=response['request_id'] if response['request_id'] else response['txn_update_id'],
+            request_type="Cancel",
+            transaction=Transaction.objects.get(mihpayid=mihpayid),
+            status=response['status'],
+            message=response['msg'],
+            amount=amount,
+            mihpayid=response['mihpayid'] if response['mihpayid'] else mihpayid,
+            bank_ref_num=response['bank_ref_num'],
+            error_code=response['error_code'] if response['error_code'] else "")
     return response
 
 
@@ -244,17 +240,16 @@ def cancel_refund_transaction(mihpayid, amount):
     response = post(params)
 
     if type(response) == type(dict()) and 'request_id' in response.keys():
-        cancel_refund_request = CancelRefundCaptureRequests.objects.create(
-                                    request_id=response['request_id'],
-                                    request_type="Cancel/Refund",
-                                    transaction=Transaction.objects.get(mihpayid=mihpayid),
-                                    status=response['status'],
-                                    message=response['msg'],
-                                    amount=amount,
-                                    mihpayid=response['mihpayid'] if response['mihpayid'] else mihpayid,
-                                    bank_ref_num=response['bank_ref_num'],
-                                    error_code=response['error_code']
-                                )
+        CancelRefundCaptureRequests.objects.create(
+            request_id=response['request_id'],
+            request_type="Cancel/Refund",
+            transaction=Transaction.objects.get(mihpayid=mihpayid),
+            status=response['status'],
+            message=response['msg'],
+            amount=amount,
+            mihpayid=response['mihpayid'] if response['mihpayid'] else mihpayid,
+            bank_ref_num=response['bank_ref_num'],
+            error_code=response['error_code'])
     return response
 
 
