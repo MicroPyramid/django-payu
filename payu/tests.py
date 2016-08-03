@@ -109,7 +109,6 @@ class VerifyPayment(TestCase):
                                    mihpayid=123)
         # setattr(settings, 'PAYU_MODE', 'TEST')
 
-
     def test_verify_payment(self):
         r = verify_payment(txnid=123)
         self.assertFalse(r)
@@ -119,14 +118,13 @@ class VerifyPayment(TestCase):
         self.assertFalse(r)
 
     def test_capture_transaction(self):
-        r = capture_transaction(123)
+        capture_transaction(123)
 
     def test_refund_transaction(self):
-        r = refund_transaction(123,123)
+        refund_transaction(123, 123)
 
     def test_check_action_status(self):
-        r = check_action_status(123)
+        check_action_status(123)
 
     def test_cancel_refund_transaction(self):
-        r = cancel_refund_transaction(123,10)
-
+        cancel_refund_transaction(123, 10)
