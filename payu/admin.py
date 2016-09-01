@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Transaction, CancelRefundCaptureRequests
+from payu.models import Transaction, CancelRefundCaptureRequests
 
 # Register your models here.
 
