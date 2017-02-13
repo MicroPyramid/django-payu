@@ -42,7 +42,9 @@ Quick start
 
     python manage.py migrate
 
+Visit our Django E-commerce Development page `Here`_
 
 For additional help you can `Contact us here`_
 
 .. _contact us here: https://micropyramid.com/contact-us/
+.. _Here: https://micropyramid.com/django-ecommerce-development/
