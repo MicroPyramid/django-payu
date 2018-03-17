@@ -37,7 +37,7 @@ class Transaction(models.Model):
 
 
 class CancelRefundCaptureRequests(models.Model):
-    transaction = models.ForeignKey(Transaction)
+    transaction = models.ForeignKey(Transaction, on_delete=models.CASCADE)
 
     # PayU Request ID for a request in a Transaction.
     request_id = models.CharField(max_length=100)
