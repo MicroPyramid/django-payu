@@ -42,6 +42,11 @@ Quick start
 
     python manage.py migrate
 
+5. Run the tests::
+
+    python test_runner.py  test -v 2
+
+
 Visit our Django E-commerce Development page `Here`_
 
 For additional help you can `Contact us here`_
