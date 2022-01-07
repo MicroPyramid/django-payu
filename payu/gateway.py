@@ -22,44 +22,36 @@ def get_hash(data):
     # Generate hash sequence before posting the transaction to PayU:
     # sha512(key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5||||||SALT)
 
-    hash_value = sha512(str(getattr(settings, 'PAYU_MERCHANT_KEY', None)).encode('utf-8'))
+    hash_value = str(getattr(settings, 'PAYU_MERCHANT_KEY', None))
 
     for key in KEYS:
         if data.get(key) == None:
-            hash_value.update((("%s%s" % ('|', str('')))).encode("utf-8"))
+            hash_value = str(hash_value) + str('|')
         else:
-            hash_value.update(("%s%s" % ('|', str(data.get(key, '')))).encode("utf-8"))
+            hash_value = str(hash_value) + str('|') + str(data.get(key, ''))
 
-    hash_value.update(("%s%s".format('|', getattr(settings, 'PAYU_MERCHANT_SALT', None))).encode('utf-8'))
+    hash_value = str(hash_value) + str('|') + str(getattr(settings, 'PAYU_MERCHANT_SALT', None))
 
     # Create transaction record
     Transaction.objects.create(
         transaction_id=data.get('txnid'), amount=data.get('amount'))
-    return hash_value.hexdigest().lower()
+    #return hash_value
+    return sha512(str(hash_value).encode('utf-8')).hexdigest().lower()
 
 
 def check_hash(data):
     # Generate hash sequence and verify it with the hash sent by PayU in the Post Response
 
     Reversedkeys = reversed(KEYS)
-    if data.get('additionalCharges'):
-        # if the additionalCharges parameter is posted in the transaction response,then hash formula is:
-        # sha512(additionalCharges|SALT|status||||||udf5|udf4|udf3|udf2|udf1|email|firstname|productinfo|amount|txnid|key)
-
-        hash_value = sha512(str(data.get('additionalCharges')).encode('utf-8'))
-        hash_value.update(("%s%s" % ('|', getattr(settings, 'PAYU_MERCHANT_SALT', None))).encode('utf-8'))
-    else:
-        # If additionalCharges parameter is not posted in the transaction response, then hash formula is the generic reverse hash formula
-        # sha512(SALT|status||||||udf5|udf4|udf3|udf2|udf1|email|firstname|productinfo|amount|txnid|key)
-
-        hash_value = sha512(getattr(settings, 'PAYU_MERCHANT_SALT', None))
-
-    hash_value.update(("%s%s" % ('|', str(data.get('status', '')))).encode('utf-8'))
+    hash_value = str(getattr(settings, 'PAYU_MERCHANT_SALT', None))
 
     for key in Reversedkeys:
-        hash_value.update(("%s%s" % ('|', str(data.get(key, '')))).encode('utf-8'))
+        if data.get(key) == None:
+            hash_value = str(hash_value) + str('|')
+        else:
+            hash_value = str(hash_value) + str('|') + str(data.get(key, ''))
 
-    hash_value.update(("%s%s" % ('|', getattr(settings, 'PAYU_MERCHANT_KEY', None))).encode('utf-8'))
+    hash_value = str(hash_value) + str('|') + str(getattr(settings, 'PAYU_MERCHANT_KEY', None))
 
     # Updating the transaction
     transaction = Transaction.objects.get(transaction_id=data.get('txnid'))
@@ -77,7 +69,7 @@ def check_hash(data):
     transaction.hash_status = "Success" if hash_value.hexdigest().lower() == data.get('hash') else "Failed"
     transaction.save()
 
-    return (hash_value.hexdigest().lower() == data.get('hash'))
+    return (sha512(str(hash_value).encode('utf-8')).hexdigest().lower() == data.get('hash'))
 
 
 def get_webservice_hash(data):
