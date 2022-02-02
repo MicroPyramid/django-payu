@@ -6,3 +6,5 @@ dist
 *.egg-info/
 docs/build/*
 .coverage
+.venv/
+__pycache__/
