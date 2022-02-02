@@ -46,6 +46,28 @@ Quick start
 
     python test_runner.py  test -v 2
 
+## Contributors ✨
+
+Thanks go to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/ashwin31"><img src="https://avatars.githubusercontent.com/u/365610?v=4" width="100px;" alt=""/><br /><sub>             <b>Ashwin Kumar</b></sub></a><br />
+    </td>
+  </tr>
+
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+Contributions of any kind are welcome!
+
 
 Visit our Django E-commerce Development page `Here`_
 
