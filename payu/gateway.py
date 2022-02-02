@@ -78,7 +78,7 @@ def check_hash(data):
     transaction.discount = data.get('discount')
     transaction.additional_charges = data.get('additionalCharges', 0)
     transaction.txn_status_on_payu = data.get('unmappedstatus')
-    transaction.hash_status = "Success" if hash_value.hexdigest().lower() == data.get('hash') else "Failed"
+    transaction.hash_status = "Success" if sha512(str(hash_value).encode('utf-8')).hexdigest().lower() == data.get('hash') else "Failed"
     transaction.save()
 
     return (sha512(str(hash_value).encode('utf-8')).hexdigest().lower() == data.get('hash'))
